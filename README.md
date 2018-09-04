@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/aliciatb/earthquakes.svg?branch=master)](https://travis-ci.org/aliciatb/earthquakes)
+
 # earthquakes
 Significant Earthquakes Database
 
