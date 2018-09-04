@@ -24,9 +24,25 @@ The `earthquakes` library allows users to-
 - View annotations
 
 ## eq_clean_data
-
+1. Constructs date from `YEAR`, `MONTH`, `DAY` (defaults NA to 1 for MONTH and DAY and excludes BCE events)
+2. Sets Latitude and Longitude as numbers (doubles) for use by mapping libraries
+3. Extracts city name from full `LOCATION_NAME` value and format as Full Title Case
 ```{r summaryData}
 library(earthquakes)
+
 data <- eq_clean_data(raw)
-summary(raw)
+summary(data[c('DATE','LONGITUDE','LATITUDE','LOCATION_CITY')])
+
+head(data[,c('DATE','LONGITUDE','LATITUDE','LOCATION_CITY')])
+```
+
+## eq_clean_location
+1. `eq_clean_data` passes `COUNTRY` and `LOCATION_NAME` like _"ITALY: POMPEI"_
+2. Country and colon are removed
+3. Full Title Case applied
+```{r cleanLocationCity}
+example_country <- "ITALY"
+example_location <- "ITALY: POMPEI"
+clean_location <- eq_location_clean(example_country, example_location)
+clean_location
 ```
