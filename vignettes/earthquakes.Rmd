@@ -1,0 +1,32 @@
+---
+title: "Earthquakes"
+author: "Alicia Brown"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `earthquakes` library allows users to-
+
+- Pass raw earthquake data to `eq_clean_data` and be returned date, city and numeric coordinates
+- Visualize earthquakes over time
+- Visualize earthquakes geospatially
+- View annotations
+
+## eq_clean_data
+
+```{r summaryData}
+library(earthquakes)
+data <- eq_clean_data(raw)
+summary(raw)
+```
