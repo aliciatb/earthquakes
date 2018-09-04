@@ -6,40 +6,40 @@
 \title{Significant Earthquakes Database}
 \format{A data frame with columns:
 \describe{
- \item{COUNTRY}{}
- \item{DAMAGE_DESCRIPTION}{}
- \item{DAMAGE_MILLIONS_DOLLARS}{}
- \item{DAY}{}
- \item{DEATHS}{}
- \item{DEATHS_DESCRIPTION}{}
- \item{EQ_MAG_MB}{}
- \item{EQ_MAG_MFA}{}
- \item{EQ_MAG_ML}{}
- \item{EQ_MAG_MS}{}
- \item{EQ_MAG_MW}{}
- \item{EQ_MAG_UNK}{}
+ \item{COUNTRY}{The Country where the Earthquake occurred.}
+ \item{DAMAGE_DESCRIPTION}{Description of Damage from the Earthquake. 0 = NONE, 1 = LIMITED (roughly corresponding to less than $1 million), 2 = MODERATE (~$1 to $5 million), 3 = SEVERE (~>$5 to $24 million), 4 = EXTREME (~$25 million or more). When possible, a rough estimate was made of the dollar amount of damage based upon the description provided, in order to choose the damage category. In many cases, only a single descriptive term was available. These terms were converted to the damage categories based upon the authors apparent use of the term elsewhere. In the absence of other information, LIMITED is considered synonymous with slight, minor, and light, SEVERE as synonymous with major, extensive, and heavy, and EXTREME as synonymous with catastrophic. Note: The descriptive terms relate approximately to current dollar values.}
+ \item{DAMAGE_MILLIONS_DOLLARS}{Damage in Millions of Dollars from the Earthquake. The value in the Damage column should be multipled by 1,000,000 to obtain the actual dollar amount. When a dollar amount for damage was found in the literature, it was listed in the Damage column in millions of U.S. dollars. The dollar value listed is the value at the time of the event. To convert the damage to current dollar values, please use the Consumer Price Index Calculator. Monetary conversion tables for the time of the event were used to convert foreign currency to U.S. dollars.}
+ \item{DAY}{Day of earthquake.}
+ \item{DEATHS}{Number of Deaths from the Earthquake.}
+ \item{DEATHS_DESCRIPTION}{Description of Deaths from the Earthquake. 0 = None, 1= Few (~1 to 50 deaths), 2 = Some (~51 to 100 deaths), 3 = Many (~101 to 1000 deaths), 4 = Very Many (~1001 or more deaths)}
+ \item{EQ_MAG_MB}{The Mb magnitude is the compressional body wave (P-wave) magnitude. The magnitude is a measure of seismic energy. The magnitude scale is logarithmic. An increase of one in magnitude represents a tenfold increase in the recorded wave amplitude. However, the energy release associated with an increase of one in magnitude is not tenfold, but about thirtyfold. For example, approximately 900 times more energy is released in an earthquake of magnitude 7 than in an earthquake of magnitude 5. Each increase in magnitude of one unit is equivalent to an increase of seismic energy of about 1.6 x 10,000,000,000,000 ergs.}
+ \item{EQ_MAG_MFA}{The Mfa magnitudes are computed from the felt area, for earthquakes that occurred before seismic instruments were in general use. The magnitude is a measure of seismic energy. The magnitude scale is logarithmic. An increase of one in magnitude represents a tenfold increase in the recorded wave amplitude. However, the energy release associated with an increase of one in magnitude is not tenfold, but about thirtyfold. For example, approximately 900 times more energy is released in an earthquake of magnitude 7 than in an earthquake of magnitude 5. Each increase in magnitude of one unit is equivalent to an increase of seismic energy of about 1.6 x 10,000,000,000,000 ergs.}
+ \item{EQ_MAG_ML}{The ML magnitude was the original magnitude relationship defined by Richter and Gutenberg for local earthquakes in 1935. It is based on the maximum amplitude of a seismogram recorded on a Wood-Anderson torsion seismograph. Although these instruments are no longer widely in use, ML values are calculated using modern instrumentation with appropriate adjustments. The magnitude is a measure of seismic energy. The magnitude scale is logarithmic. An increase of one in magnitude represents a tenfold increase in the recorded wave amplitude. However, the energy release associated with an increase of one in magnitude is not tenfold, but about thirtyfold. For example, approximately 900 times more energy is released in an earthquake of magnitude 7 than in an earthquake of magnitude 5. Each increase in magnitude of one unit is equivalent to an increase of seismic energy of about 1.6 x 10,000,000,000,000 ergs.}
+ \item{EQ_MAG_MS}{The Ms magnitude is the surface-wave magnitude of the earthquake. The magnitude is a measure of seismic energy. The magnitude scale is logarithmic. An increase of one in magnitude represents a tenfold increase in the recorded wave amplitude. However, the energy release associated with an increase of one in magnitude is not tenfold, but about thirtyfold. For example, approximately 900 times more energy is released in an earthquake of magnitude 7 than in an earthquake of magnitude 5. Each increase in magnitude of one unit is equivalent to an increase of seismic energy of about 1.6 x 10,000,000,000,000 ergs.}
+ \item{EQ_MAG_MW}{The Mw magnitude is based on the moment magnitude scale. Moment is a physical quantity proportional to the slip on the fault times the area of the fault surface that slips; it is related to the total energy released in the EQ. The moment can be estimated from seismograms (and also from geodetic measurements). The moment is then converted into a number similar to other earthquake magnitudes by a standard formula. The result is called the moment magnitude. The moment magnitude provides an estimate of earthquake size that is valid over the complete range of magnitudes, a characteristic that was lacking in other magnitude scales. The magnitude is a measure of seismic energy. The magnitude scale is logarithmic. An increase of one in magnitude represents a tenfold increase in the recorded wave amplitude. However, the energy release associated with an increase of one in magnitude is not tenfold, but about thirtyfold. For example, approximately 900 times more energy is released in an earthquake of magnitude 7 than in an earthquake of magnitude 5. Each increase in magnitude of one unit is equivalent to an increase of seismic energy of about 1.6 x 10,000,000,000,000 ergs.}
+ \item{EQ_MAG_UNK}{The computational method for the earthquake magnitude was unknown and could not be determined from the published sources. The magnitude is a measure of seismic energy. The magnitude scale is logarithmic. An increase of one in magnitude represents a tenfold increase in the recorded wave amplitude. However, the energy release associated with an increase of one in magnitude is not tenfold, but about thirtyfold. For example, approximately 900 times more energy is released in an earthquake of magnitude 7 than in an earthquake of magnitude 5. Each increase in magnitude of one unit is equivalent to an increase of seismic energy of about 1.6 x 10,000,000,000,000 ergs.}
  \item{EQ_PRIMARY}{}
  \item{FLAG_TSUNAMI}{When a tsunami was generated by an earthquake, "Tsu" appears in the Assoc Tsu column. There should also be a "TSU" link in the Assoc column which is linked to the tsunami event database. The TSU link will display additional tsunami event information in a new browser window.}
- \item{FOCAL_DEPTH}{}
- \item{HOUR}{}
- \item{HOUSES_DAMAGED}{}
+ \item{FOCAL_DEPTH}{The depth of the earthquake is given in kilometers.}
+ \item{HOUR}{Hour}
+ \item{HOUSES_DAMAGED}{Total Number of Houses Damaged by the Earthquake. Description of Houses Damaged by the Earthquake. For those events not offering an exact number of houses damaged, the following four-level scale was used to classify the damage and was listed in the Houses Damaged De column. If the actual number of houses destroyed was listed, a descriptor was also added for search purposes. 0 = None, 1 = Few (~1 to 50 houses), 2 = Some (~51 to 100 houses), 3 = Many (~101 to 1000 houses), 4 = Very Many (~1001 or more houses)}
  \item{HOUSES_DAMAGED_DESCRIPTION}{}
- \item{HOUSES_DESTROYED}{}
- \item{HOUSES_DESTROYED_DESCRIPTION}{}
- \item{INJURIES}{}
- \item{INJURIES_DESCRIPTION}{}
+ \item{HOUSES_DESTROYED}{Total Number of Houses Destroyed by the Earthquake.}
+ \item{HOUSES_DESTROYED_DESCRIPTION}{Description of Houses Destroyed by the Earthquake. Valid values: 0 to 4. For those events not offering an exact number of houses destroyed, the following four-level scale was used to classify the destruction and was listed in the Houses Destroyed De column. If the actual number of houses destroyed was listed, a descriptor was also added for search purposes. 0 = None, 1 = Few (~1 to 50 houses), 2 = Some (~51 to 100 houses), 3 = Many (~101 to 1000 houses), 4 = Very Many (~1001 or more houses)}
+ \item{INJURIES}{Number of Injuries from the Earthquake.}
+ \item{INJURIES_DESCRIPTION}{Description of Injuries from the Earthquake. 0 = None, 1 = Few (~1 to 50 injuries), 2 = Some(~51 to 100 injuries), 3 = Many (~101 to 1000 injuries), 4 = Very Many (~1001 or more injuries)}
  \item{INTENSITY}{}
  \item{I_D}{The unique numeric identifier of the record.}
- \item{LATITUDE}{}
- \item{LOCATION_NAME}{}
- \item{LONGITUDE}{}
- \item{MINUTE}{}
- \item{MISSING}{}
- \item{MISSING_DESCRIPTION}{}
- \item{MONTH}{}
- \item{REGION_CODE}{}
- \item{SECOND}{}
- \item{STATE}{}
+ \item{LATITUDE}{titude: 0 to 90 (Northern Hemisphere) -90 to 0 (Southern Hemisphere). Events prior to 1900 were not instrumentally located, therefore, the location given is based on the latitude and longitude of the city where the damage occurred. The event coordinates of approximately 100 earthquakes in this database are not known and the latitude and longitude are listed as 0.0. Therefore, to retrieve all the events from a particular country or state, leave the event coordinates search parameter blank and enter the countr}
+ \item{LOCATION_NAME}{The Country, State, Province or City where the Earthquake occurred (For example enter: USA or California or San Francisco) This is only an approximate geographic location. Events prior to 1900 were not instrumentally located, therefore, the location given is based on the latitude and longitude of the city where the damage occurred. In the Geographic Location column, the country is listed first, then the province or state, and finally the city or cities where damage was reported. If there are different spellings of a city name the additional spellings are in parentheses.}
+ \item{LONGITUDE}{Longitude: 0 to 180 (Eastern Hemisphere) -180 to 0 (Western Hemisphere). Events prior to 1900 were not instrumentally located, therefore, the location given is based on the latitude and longitude of the city where the damage occurred. The event coordinates of approximately 100 earthquakes in this database are not known and the latitude and longitude are listed as 0.0. Therefore, to retrieve all the events from a particular country or state, leave the event coordinates search parameter blank and enter the country.}
+ \item{MINUTE}{Minute of earthquake.}
+ \item{MISSING}{Number of Missing from the Earthquake.}
+ \item{MISSING_DESCRIPTION}{Description of Missing from the Earthquake. 0 = None, 1 = Few (~1 to 50 missing), 2 = Some(~51 to 100 missing), 3 = Many (~101 to 1000 missing), 4 = Very Many (~1001 or more missing)}
+ \item{MONTH}{Month of earthquake.}
+ \item{REGION_CODE}{Regional boundaries. (10 =	Central, Western and S. Africa, 15 =	Northern Africa, 20 =	Antarctica, 30 =	East Asia, 40 =	Central Asia and Caucasus, 50 =	Kamchatka and Kuril Islands, 60 =	S. and SE. Asia and Indian Ocean, 70 =	Atlantic Ocean, 80 =	Bering Sea, 90 =	Caribbean, 100 =	Central America, 110 =	Eastern Europe, 120 =	Northern and Western Europe, 130 =	Southern Europe, 140 =	Middle East, 150 =	North America and Hawaii, 160 =	South America, 170 =	Central and South Pacific)}
+ \item{SECOND}{Secondof earthquake.}
+ \item{STATE}{The two-letter State or Province abbreviation where the Earthquake occurred.}
  \item{TOTAL_DAMAGE_DESCRIPTION}{}
  \item{TOTAL_DAMAGE_MILLIONS_DOLLARS}{}
  \item{TOTAL_DEATHS}{}
@@ -52,7 +52,7 @@
  \item{TOTAL_INJURIES_DESCRIPTION}{}
  \item{TOTAL_MISSING}{}
  \item{TOTAL_MISSING_DESCRIPTION}{}
- \item{YEAR}{Century and Year}
+ \item{YEAR}{Century and Year of earthquake.}
 }}
 \source{
 NOAA (National Centers for Environmental Information) \url{https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1}
