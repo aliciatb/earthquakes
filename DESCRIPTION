@@ -9,7 +9,7 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0
-Imports: dplyr, readr, stringr
+Imports: dplyr, readr, stringr, ggplot2
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

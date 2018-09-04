@@ -5,6 +5,7 @@ Significant Earthquakes Database
 
 # features
 * Clean dataset with date, city location and numeric lat/long values
+* Show when earthquakes occurred in different countries, their magnitude, and their toll on human life
 * timeline and map visualizations
 * annotated vizes
 

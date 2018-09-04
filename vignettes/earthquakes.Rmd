@@ -46,3 +46,9 @@ example_location <- "ITALY: POMPEI"
 clean_location <- eq_location_clean(example_country, example_location)
 clean_location
 ```
+
+## geom_timeline()
+```{r geomtimeline, eval=FALSE}
+test_g <- geom_timeline(data, "2000-01-01", "2018-01-01", "NEW ZEALAND")
+test_g
+```
