@@ -14,7 +14,7 @@
 #' }
 #'
 #' @importFrom readr parse_date parse_double
-#' @importFrom dplyr  %>% filter select
+#' @importFrom dplyr %>% filter select
 #' @importFrom stringr str_pad
 #'
 #' @export
@@ -48,12 +48,31 @@ eq_clean_data <- function(raw_data){
   # step 3. strip out country name and colon and title case the city
   earthquakes$LOCATION_CITY <- eq_location_clean(earthquakes$COUNTRY,earthquakes$LOCATION_NAME)
 
+  # step 4. set values to correct format to support visualizations - better to set this when reading in data file
+  earthquakes$EQ_PRIMARY <- parse_double(earthquakes$EQ_PRIMARY)
+  earthquakes$EQ_MAG_MB <- parse_double(earthquakes$EQ_MAG_MB)
+  earthquakes$EQ_MAG_MFA <- parse_double(earthquakes$EQ_MAG_MFA)
+  earthquakes$EQ_MAG_ML <- parse_double(earthquakes$EQ_MAG_ML)
+  earthquakes$EQ_MAG_MS <- parse_double(earthquakes$EQ_MAG_MS)
+  earthquakes$EQ_MAG_MW <- parse_double(earthquakes$EQ_MAG_MW)
+  earthquakes$EQ_MAG_UNK <- parse_double(earthquakes$EQ_MAG_UNK)
+  earthquakes$DEATHS <- parse_integer(earthquakes$DEATHS)
+  earthquakes$MISSING <- parse_integer(earthquakes$MISSING)
+  earthquakes$INJURIES <- parse_integer(earthquakes$INJURIES)
+  earthquakes$DAMAGE_MILLIONS_DOLLARS <- parse_double(earthquakes$DAMAGE_MILLIONS_DOLLARS)
+  earthquakes$HOUSES_DAMAGED <- parse_integer(earthquakes$HOUSES_DAMAGED)
+  earthquakes$HOUSES_DESTROYED <- parse_integer(earthquakes$HOUSES_DESTROYED)
+
+  # step 5. drop nas
+
   # final cleanup: drop helper fields
   earthquakes <- earthquakes %>%
     dplyr::select(-YEAR_FULL,-MONTH_FULL,-DAY_FULL,-DATE_CHAR)
 
   earthquakes
 }
+# test_data <- eq_clean_data(raw)
+# summary(test_data)
 
 #' Print "Earthquakes City Location"
 #'
@@ -100,7 +119,7 @@ eq_location_clean <- function(country, full_name){
 #'
 #' @importFrom ggplot2 ggplot
 #' @importFrom readr parse_integer
-#' @importFrom dplyr  %>% filter
+#' @importFrom dplyr %>% filter
 #' @importFrom stringr str_to_upper
 #'
 #' @export
@@ -108,14 +127,62 @@ geom_timeline <- function(data, start_date, end_date, country){
   # ensure that country name is upper case
   country = stringr::str_to_upper(country)
   sub <- data %>%
-    filter(DATE >= start_date) %>%
-    filter(DATE <= end_date) %>%
-    filter(COUNTRY == country)
+    dplyr::filter(DATE >= start_date) %>%
+    dplyr::filter(DATE <= end_date) %>%
+    dplyr::filter(COUNTRY == country)
 
-  # convert DEATHS to number
-  sub$DEATHS <- parse_integer(sub$DEATHS)
-
-  g <- ggplot2::ggplot(data = sub, aes(x = DATE, y = COUNTRY, size = EQ_MAG_ML, color = DEATHS, alpha = .5)) +
-    geom_point()
+  g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, color = DEATHS, alpha = .5)) +
+    ggplot2::geom_point() +
+    ggplot2::xlab("Date") +
+    ggplot2::ylab("")
   g
 }
+# test_g <- geom_timeline(test_data, "2000-01-01", "2018-01-01", "NEW ZEALAND")
+# test_g
+
+#' Print "Earthquakes Timeline Visualization with Label"
+#'
+#' This function reads a clean dataset of significant earthquake data provide by NOAA (National Centers for Environmental Information).
+#'
+#' @param data The data has been cleaned using eq_clean_data function
+#' @param start_date The first date to return data for viz
+#' @param end_date The last date to return data for viz
+#' @param country Provide country name like ITALY, NEW ZEALAND
+#' @param max_magnitude Max Magnitude
+#'
+#' @return This function returns a ggplot timeline visualization with DATE on the x-axis, earthquake count on the y-axis where size of point indicates magnitude(EQ_MAG_ML) and color signifies Number of Deaths due to earthquake
+#'
+#' @note Earthquakes that occurred BCE (Before Current Epoch) have been removed from the dataset because negative year values are not handled well.
+#'
+#' @examples
+#' \dontrun{
+#' geom_timeline_label(data, "2000-01-01", "2018-01-01", "NEW ZEALAND", 5)
+#' }
+#'
+#' @importFrom ggplot2 ggplot
+#' @importFrom readr parse_integer
+#' @importFrom dplyr %>% filter
+#' @importFrom stringr str_to_upper
+#'
+#' @export
+geom_timeline_label <- function(data, start_date, end_date, country, max_magnitude){
+# ensure that country name is upper case
+country = stringr::str_to_upper(country)
+sub <- data %>%
+  dplyr::filter(DATE >= start_date) %>%
+  dplyr::filter(DATE <= end_date) %>%
+  dplyr::filter(COUNTRY == country)
+
+# convert DEATHS to number
+sub$DEATHS <- parse_integer(sub$DEATHS)
+
+g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = DATE, y = COUNTRY, label = LOCATION_CITY, size = EQ_PRIMARY, color = DEATHS, alpha = .5)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_text(angle = 45) +
+  ggplot2::xlab("Date") +
+  ggplot2::ylab("")
+g
+}
+
+# test_gt <- geom_timeline_label(test_data, "2000-01-01", "2018-01-01", "NEW ZEALAND", 5)
+# test_gt

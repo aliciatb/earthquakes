@@ -12,7 +12,9 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width=8,
+  fig.height=5
 )
 ```
 
@@ -48,7 +50,12 @@ clean_location
 ```
 
 ## geom_timeline()
-```{r geomtimeline, eval=FALSE}
+```{r geomtimeline, eval=T}
 test_g <- geom_timeline(data, "2000-01-01", "2018-01-01", "NEW ZEALAND")
+test_g
+```
+## geom_timeline()
+```{r geomtimelinelable, eval=T}
+test_g <- geom_timeline_label(data, "2000-01-01", "2018-01-01", "NEW ZEALAND",7)
 test_g
 ```

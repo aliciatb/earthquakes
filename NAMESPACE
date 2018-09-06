@@ -3,6 +3,7 @@
 export(eq_clean_data)
 export(eq_location_clean)
 export(geom_timeline)
+export(geom_timeline_label)
 importFrom(dplyr,"%>%")
 importFrom(dplyr,filter)
 importFrom(dplyr,select)
