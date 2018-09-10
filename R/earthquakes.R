@@ -186,3 +186,11 @@ g
 
 # test_gt <- geom_timeline_label(test_data, "2000-01-01", "2018-01-01", "NEW ZEALAND", 5)
 # test_gt
+
+# eq_map <- function(annot_col){
+#
+# }
+# library(earthquakes)
+# earthquakes <- readr::read_delim("/users/alicia.brown/data/earthquakes/earthquakes.tsv.zip", delim = "\t") dplyr::%>%
+#   eq_clean_data()
+#
