@@ -166,31 +166,47 @@ geom_timeline <- function(data, start_date, end_date, country){
 #'
 #' @export
 geom_timeline_label <- function(data, start_date, end_date, country, max_magnitude){
-# ensure that country name is upper case
-country = stringr::str_to_upper(country)
-sub <- data %>%
-  dplyr::filter(DATE >= start_date) %>%
-  dplyr::filter(DATE <= end_date) %>%
-  dplyr::filter(COUNTRY == country)
+  # ensure that country name is upper case
+  country = stringr::str_to_upper(country)
+  sub <- data %>%
+    dplyr::filter(DATE >= start_date) %>%
+    dplyr::filter(DATE <= end_date) %>%
+    dplyr::filter(COUNTRY == country)
 
-# convert DEATHS to number
-sub$DEATHS <- parse_integer(sub$DEATHS)
+  # convert DEATHS to number
+  sub$DEATHS <- parse_integer(sub$DEATHS)
 
-g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = DATE, y = COUNTRY, label = LOCATION_CITY, size = EQ_PRIMARY, color = DEATHS, alpha = .5)) +
-  ggplot2::geom_point() +
-  ggplot2::geom_text(angle = 45) +
-  ggplot2::xlab("Date") +
-  ggplot2::ylab("")
-g
+  g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = DATE, y = COUNTRY, label = LOCATION_CITY, size = EQ_PRIMARY, color = DEATHS, alpha = .5)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_text(angle = 45) +
+    ggplot2::xlab("Date") +
+    ggplot2::ylab("")
+  g
 }
 
-# test_gt <- geom_timeline_label(test_data, "2000-01-01", "2018-01-01", "NEW ZEALAND", 5)
-# test_gt
-
-# eq_map <- function(annot_col){
-#
-# }
-# library(earthquakes)
-# earthquakes <- readr::read_delim("/users/alicia.brown/data/earthquakes/earthquakes.tsv.zip", delim = "\t") dplyr::%>%
-#   eq_clean_data()
-#
+#' Print "Earthquakes Timeline Visualization with Label"
+#'
+#' This function creates a Plotly map of significant earthquake data provide by NOAA (National Centers for Environmental Information).
+#'
+#' @param data The data has been cleaned using eq_clean_data function
+#' @param annot_col The column chosen by user to be annotated.
+#'
+#' @return This function returns a leaflet map visualization with earthquakes are represented by circles and size of circle indicates magnitude(EQ_PRIMARY)
+#'
+#' @note Earthquakes that occurred BCE (Before Current Epoch) have been removed from the dataset because negative year values are not handled well.
+#'
+#' @examples
+#' \dontrun{
+#' eq_map(raw, "DATE")
+#' }
+#' @importFrom leaflet addTiles addCircleMarkers
+#' @importFrom dplyr %>%
+#'
+#' @export
+eq_map <- function(data, annot_col){
+  leaflet::leaflet() %>%
+    leaflet::addTiles() %>%
+    leaflet::addCircleMarkers(data = data, radius = data$EQ_PRIMARY,
+                     lng = ~ LONGITUDE, lat = ~ LATITUDE,
+                     popup = ~ annot_col, color = I("red"))
+}

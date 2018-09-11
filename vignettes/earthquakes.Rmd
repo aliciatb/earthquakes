@@ -31,7 +31,7 @@ The `earthquakes` library allows users to-
 3. Extracts city name from full `LOCATION_NAME` value and format as Full Title Case
 ```{r summaryData}
 library(earthquakes)
-
+library(dplyr)
 data <- eq_clean_data(raw)
 summary(data[c('DATE','LONGITUDE','LATITUDE','LOCATION_CITY')])
 
@@ -50,12 +50,22 @@ clean_location
 ```
 
 ## geom_timeline()
+* visualize earthquakes over time
 ```{r geomtimeline, eval=T}
 test_g <- geom_timeline(data, "2000-01-01", "2018-01-01", "NEW ZEALAND")
 test_g
 ```
 ## geom_timeline()
+* visualize earthquakes over time with a label for Location City of earthquake
 ```{r geomtimelinelable, eval=T}
 test_g <- geom_timeline_label(data, "2000-01-01", "2018-01-01", "NEW ZEALAND",7)
 test_g
+```
+
+## eq_map(data, annot_col)
+* Visualize geographically earthquakes by magnitude with annotated label passed to function
+```{r leafletViz}
+test_m <- eq_clean_data(raw) %>%
+  dplyr::filter(COUNTRY == "MEXICO" & lubridate::year(DATE) >= 2000)
+eq_map(test_m, "DATE")
 ```
