@@ -1,3 +1,4 @@
+
 #' Print "Earthquakes Clean Data"
 #'
 #' This function reads a raw dataset of significant earthquake data provide by NOAA (National Centers for Environmental Information).
@@ -16,6 +17,7 @@
 #' @importFrom readr parse_date parse_double
 #' @importFrom dplyr %>% filter select
 #' @importFrom stringr str_pad
+#' @importFrom rlang .data
 #'
 #' @export
 eq_clean_data <- function(raw_data){
@@ -30,7 +32,7 @@ eq_clean_data <- function(raw_data){
 
   # filter out BCE dates for now, which have negative year values
   earthquakes <- earthquakes %>%
-    dplyr::filter(YEAR > 0)
+    dplyr::filter(.data$YEAR > 0)
 
   # pad all date parts before converting to YMD
   earthquakes$YEAR_FULL <- stringr::str_pad(earthquakes$YEAR,4,"left","0")
@@ -67,7 +69,7 @@ eq_clean_data <- function(raw_data){
 
   # final cleanup: drop helper fields
   earthquakes <- earthquakes %>%
-    dplyr::select(-YEAR_FULL,-MONTH_FULL,-DAY_FULL,-DATE_CHAR)
+    dplyr::select(-.data$YEAR_FULL,-.data$MONTH_FULL,-.data$DAY_FULL,-.data$DATE_CHAR)
 
   earthquakes
 }
@@ -121,17 +123,18 @@ eq_location_clean <- function(country, full_name){
 #' @importFrom readr parse_integer
 #' @importFrom dplyr %>% filter
 #' @importFrom stringr str_to_upper
+#' @importFrom rlang .data
 #'
 #' @export
 geom_timeline <- function(data, start_date, end_date, country){
   # ensure that country name is upper case
   country = stringr::str_to_upper(country)
   sub <- data %>%
-    dplyr::filter(DATE >= start_date) %>%
-    dplyr::filter(DATE <= end_date) %>%
-    dplyr::filter(COUNTRY == country)
+    dplyr::filter(.data$DATE >= start_date) %>%
+    dplyr::filter(.data$DATE <= end_date) %>%
+    dplyr::filter(.data$COUNTRY == country)
 
-  g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = DATE, y = COUNTRY, size = EQ_PRIMARY, color = DEATHS, alpha = .5)) +
+  g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = .data$DATE, y = .data$COUNTRY, size = .data$EQ_PRIMARY, color = .data$DEATHS, alpha = .5)) +
     ggplot2::geom_point() +
     ggplot2::xlab("Date") +
     ggplot2::ylab("")
@@ -163,20 +166,21 @@ geom_timeline <- function(data, start_date, end_date, country){
 #' @importFrom readr parse_integer
 #' @importFrom dplyr %>% filter
 #' @importFrom stringr str_to_upper
+#' @importFrom rlang .data
 #'
 #' @export
 geom_timeline_label <- function(data, start_date, end_date, country, max_magnitude){
   # ensure that country name is upper case
   country = stringr::str_to_upper(country)
   sub <- data %>%
-    dplyr::filter(DATE >= start_date) %>%
-    dplyr::filter(DATE <= end_date) %>%
-    dplyr::filter(COUNTRY == country)
+    dplyr::filter(.data$DATE >= start_date) %>%
+    dplyr::filter(.data$DATE <= end_date) %>%
+    dplyr::filter(.data$COUNTRY == country)
 
   # convert DEATHS to number
   sub$DEATHS <- parse_integer(sub$DEATHS)
 
-  g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = DATE, y = COUNTRY, label = LOCATION_CITY, size = EQ_PRIMARY, color = DEATHS, alpha = .5)) +
+  g <- ggplot2::ggplot(data = sub, ggplot2::aes(x = .data$DATE, y = .data$COUNTRY, label = .data$LOCATION_CITY, size = .data$EQ_PRIMARY, color = .data$DEATHS, alpha = .5)) +
     ggplot2::geom_point() +
     ggplot2::geom_text(angle = 45) +
     ggplot2::xlab("Date") +
@@ -210,3 +214,5 @@ eq_map <- function(data, annot_col){
                      lng = ~ LONGITUDE, lat = ~ LATITUDE,
                      popup = ~ annot_col, color = I("red"))
 }
+
+
